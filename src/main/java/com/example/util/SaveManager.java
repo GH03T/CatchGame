@@ -31,7 +31,6 @@ public class SaveManager {
             } else {
                 return null;
             }
-            
         } catch (IOException e) {
             return null;
         }
