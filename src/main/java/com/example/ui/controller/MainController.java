@@ -21,39 +21,39 @@ public class MainController {
         /* MAIN MENU */
 
         // On Enter
-        frame.enterButton_addActionListener(e -> onEnterClick());
-        frame.inputField_addActionListener(e -> onEnterClick());
+        frame.addEnterButtonListener(e -> onEnterClick());
+        frame.addInputFieldListener(e -> onEnterClick());
 
         // List Dex
-        frame.dexButton_addActionListener(e -> {
-            frame.dexDialogBox_setText(model.getPlayer().getDex());
-            frame.dexDialogBox_setVisible(true);
+        frame.addDexButtonListener(e -> {
+            frame.setDexDialogText(model.getPlayer().getDex());
+            frame.setDexDialogVisible(true);
         });
 
         // List Team
-        frame.teamButton_addActionListener(e -> {
-            frame.teamDialogBox_setText(model.getPlayer().getTeam());
-            frame.teamDialogBox_setVisible(true);
+        frame.addTeamButtonListener(e -> {
+            frame.setTeamDialogText(model.getPlayer().getTeam());
+            frame.setTeamDialogVisible(true);
         });
 
 
         /* BATTLE MENU */
         
         // Open Battle Menu
-        frame.battleButton_addActionListener(e -> frame.battleFrame_setVisible(true));
+        frame.addBattleButtonListener(e -> frame.setBattleFrameVisible(true));
 
         // Catch Button
-        frame.battleFrame_catchButton_addActionListener(e -> {
-            frame.displayLabel_setText(model.getPlayer().catchBoblet());
-            frame.battleFrame_setVisible(false);
+        frame.addBattleFrameCatchListener(e -> {
+            frame.setDisplayText(model.getPlayer().catchBoblet());
+            frame.setBattleFrameVisible(false);
 
             updateDialog(); // Update Dialog Boxes
         });
         
         // Escape Button
-        frame.battleFrame_escapeButton_addActionListener(e -> {
-            frame.displayLabel_setText(model.getPlayer().runAway());
-            frame.battleFrame_setVisible(false);
+        frame.addBattleFrameEscapeListener(e -> {
+            frame.setDisplayText(model.getPlayer().runAway());
+            frame.setBattleFrameVisible(false);
 
             updateDialog(); // Update Dialog Boxes
         });
@@ -61,25 +61,25 @@ public class MainController {
 
     private void onEnterClick() {
         // Get Name
-        if(frame.displayLabel_getText().equals(model.getInputNameText())) {
-            model.setName(frame.inputField_getText());
+        if(frame.getDisplayText().equals(model.getInputNameText())) {
+            model.setName(frame.getInputText());
 
-            frame.displayLabel_setText(model.getInputAgeText());
-            frame.inputField_setText(null);
+            frame.setDisplayText(model.getInputAgeText());
+            frame.setInputText(null);
 
             return;
         }
 
         // Get Age
-        if(frame.displayLabel_getText().equals(model.getInputAgeText())) {
-            model.setAgeString(frame.inputField_getText());
+        if(frame.getDisplayText().equals(model.getInputAgeText())) {
+            model.setAgeString(frame.getInputText());
             model.initPlayer();
 
-            frame.displayLabel_setText(model.getGreeting());
+            frame.setDisplayText(model.getGreeting());
 
-            frame.inputField_setText(null);
-            frame.topPanel_setVisible(true);
-            frame.bottomPanel_setVisible(false);
+            frame.setInputText(null);
+            frame.setTopPanelVisible(true);
+            frame.setBottomPanelVisible(false);;
 
             model.isLoaded(true);
 
@@ -89,19 +89,19 @@ public class MainController {
 
     // Update Dialog Boxes
     private void updateDialog() {
-        frame.dexDialogBox_setText(model.getPlayer().getDex());
-        frame.teamDialogBox_setText(model.getPlayer().getTeam());
+        frame.setDexDialogText(model.getPlayer().getDex());
+        frame.setTeamDialogText(model.getPlayer().getTeam());
     }
 
     // Start Game
     public void start() {
         if(model.isLoaded()) {
-            frame.displayLabel_setText(model.getGreeting());
+            frame.setDisplayText(model.getGreeting());
 
-            frame.topPanel_setVisible(true);
-            frame.bottomPanel_setVisible(false);
+            frame.setTopPanelVisible(true);;
+            frame.setBottomPanelVisible(false);
         } else {
-            frame.displayLabel_setText(model.getInputNameText());
+            frame.setDisplayText(model.getInputNameText());
         }
 
         frame.setVisible(true);
