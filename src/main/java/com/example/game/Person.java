@@ -58,20 +58,20 @@ public class Person {
         // If 1/3rd Chance, Catch a...
         if(rand.nextInt(3) == 0) {
             String message = "Congrats! You have caught ";
-            switch(rand.nextInt(1, 5)){
-                case 1:
+            switch(rand.nextInt(5)){
+                case 0:
                     caught(new Creature("Boblet", 1));
                     return message + "a boblet!";
-                case 2:
+                case 1:
                     caught(new Creature("Snail", 2));
                     return message + "a snail!";
-                case 3:
+                case 2:
                     caught(new Creature("Witch", 3));
                     return message + "a witch!";
-                case 4:
-                    caught(new Creature("", 4));
+                case 3:
+                    caught(new Creature("Cat", 4));
                     return message + "a cat!";
-                case 5:
+                case 4:
                     caught(new Creature("Sentient Shoe", 5));
                     return message + "a sentient shoe!";
             }
