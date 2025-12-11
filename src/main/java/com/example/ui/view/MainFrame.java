@@ -1,189 +1,189 @@
 package com.example.ui.view;
 
-// Import javax.swing.*;
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowListener;
 
-import javax.swing.*;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 import com.formdev.flatlaf.FlatLightLaf;
 
-public class MainFrame {
-    // INSTANCE VARIABLES
-    private static final String VERSION = "v1.0.0";
+public final class MainFrame {
+	// INSTANCE VARIABLES
+	private static final String VERSION = "v1.0.0";
 
-    private BattleSubframe battleFrame;
-    private DialogBox dexDialogBox;
-    private DialogBox teamDialogBox;
+	private final BattleSubframe battleFrame;
+	private final DialogBox dexDialogBox;
+	private final DialogBox teamDialogBox;
 
-    private JButton enterButton;
-    private JButton battleButton;
-    private JButton teamButton;
-    private JButton dexButton;
+	private final JButton enterButton;
+	private final JButton battleButton;
+	private final JButton teamButton;
+	private final JButton dexButton;
 
-    private JLabel displayLabel;
+	private final JLabel displayLabel;
 
-    private JTextField inputField;
+	private final JTextField inputField;
 
-    private JFrame frame;
+	private final JFrame frame;
 
-    private JPanel panel;
-    private JPanel topPanel;
-    private JPanel bottomPanel;
-    
-    private BoxLayout boxLayout;
+	private final JPanel panel;
+	private final JPanel topPanel;
+	private final JPanel bottomPanel;
 
-    // CONSTRUCTOR
-    public MainFrame() {
-        FlatLightLaf.setup(); // Set Look and Feel
+	// CONSTRUCTOR
+	public MainFrame() {
+		FlatLightLaf.setup(); // Set Look and Feel
 
-        setupFrame();
+		// Configure JFrame
+		frame = new JFrame();
+		frame.setTitle("Boblet's Factory Finding - " + VERSION);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setResizable(false);
+		frame.setPreferredSize(new Dimension(480, 240));
 
-        battleFrame = new BattleSubframe();
-        dexDialogBox = new DialogBox();
-        teamDialogBox = new DialogBox();
-    }
+		// Setup JPanel
+		panel = new JPanel();
+		panel.setLayout(new BorderLayout());
+		panel.setBorder(new EmptyBorder(10, 10, 10, 10));
 
-    private void setupFrame() {
-        // Configure JFrame
-        frame = new JFrame();
-        frame.setTitle("Boblet's Factory Finding - " + VERSION);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setResizable(false);
-        frame.setPreferredSize(new Dimension(480, 240));
+		// Display Label (JLabel)
+		displayLabel = new JLabel("", SwingConstants.CENTER);
+		panel.add(displayLabel, BorderLayout.CENTER);
 
-        // Setup JPanel
-        panel = new JPanel();
-        panel.setLayout(new BorderLayout());
-        panel.setBorder(new EmptyBorder(10, 10, 10, 10));
+		// Top Toolbar (JPanel)
+		topPanel = new JPanel();
 
-        // Display Label (JLabel)
-        displayLabel = new JLabel("", SwingConstants.CENTER); 
-        panel.add(displayLabel, BorderLayout.CENTER);
+		battleButton = new JButton("Catch a Boblet");
+		teamButton = new JButton("View Team");
+		dexButton = new JButton("View BobbeDex");
 
-        // Top Toolbar (JPanel)
-        topPanel = new JPanel();
-        
-        battleButton = new JButton("Catch a Boblet");
-        teamButton = new JButton("View Team");
-        dexButton = new JButton("View BobbeDex");
+		topPanel.add(battleButton);
+		topPanel.add(teamButton);
+		topPanel.add(dexButton);
 
-        topPanel.add(battleButton);
-        topPanel.add(teamButton);
-        topPanel.add(dexButton);
+		topPanel.setVisible(false);
 
-        topPanel.setVisible(false);
+		panel.add(topPanel, BorderLayout.NORTH);
 
-        panel.add(topPanel, BorderLayout.NORTH);
+		// Bottom Toolbar (JPanel)
+		bottomPanel = new JPanel();
+		bottomPanel.setLayout(new BoxLayout(bottomPanel, BoxLayout.X_AXIS));
 
-        // Bottom Toolbar (JPanel)
-        bottomPanel = new JPanel();
-        boxLayout = new BoxLayout(bottomPanel, BoxLayout.X_AXIS);
-        bottomPanel.setLayout(boxLayout);
+		inputField = new JTextField();
+		enterButton = new JButton("Enter");
 
-        inputField = new JTextField();
-        enterButton = new JButton("Enter");
+		bottomPanel.add(inputField);
+		bottomPanel.add(enterButton);
 
-        bottomPanel.add(inputField);
-        bottomPanel.add(enterButton);
+		panel.add(bottomPanel, BorderLayout.SOUTH);
 
-        panel.add(bottomPanel, BorderLayout.SOUTH);
+		// Final Configuration
+		frame.add(panel);
 
-        // Final Configuration
-        frame.add(panel);
+		frame.pack();
+		frame.setLocationRelativeTo(null);
 
-        frame.pack();
-        frame.setLocationRelativeTo(null);
-    }
+		// Initialize subframes/dialogs after frame setup
+		battleFrame = new BattleSubframe();
+		dexDialogBox = new DialogBox();
+		teamDialogBox = new DialogBox();
+	}
 
-    // METHODS
+	// METHODS
 
-    /* Main Frame */
-    public void setVisible(boolean b) {
-        frame.setVisible(b);
-    }
+	/* Main Frame */
+	public void setVisible(boolean visible) {
+		frame.setVisible(visible);
+	}
 
-    public void addWindowListener(WindowListener listener) {
-        frame.addWindowListener(listener);
-    }
+	public void addWindowListener(WindowListener listener) {
+		frame.addWindowListener(listener);
+	}
 
-    /* Display Label */
-    public String displayLabel_getText() {
-        return displayLabel.getText();
-    }
+	/* Display Label */
+	public String getDisplayText() {
+		return displayLabel.getText();
+	}
 
-    public void displayLabel_setText(String text) {
-        displayLabel.setText(text);
-    }
+	public void setDisplayText(String text) {
+		displayLabel.setText(text);
+	}
 
-    /* Top Toolbar */
-    public void topPanel_setVisible(boolean b) {
-        topPanel.setVisible(b);
-    }
+	/* Top Toolbar */
+	public void setTopPanelVisible(boolean visible) {
+		topPanel.setVisible(visible);
+	}
 
-    public void battleButton_addActionListener(ActionListener listener) {
-        battleButton.addActionListener(listener);
-    }
+	public void addBattleButtonListener(ActionListener listener) {
+		battleButton.addActionListener(listener);
+	}
 
-    public void teamButton_addActionListener(ActionListener listener) {
-        teamButton.addActionListener(listener);
-    }
+	public void addTeamButtonListener(ActionListener listener) {
+		teamButton.addActionListener(listener);
+	}
 
-    public void dexButton_addActionListener(ActionListener listener) {
-        dexButton.addActionListener(listener);
-    }
+	public void addDexButtonListener(ActionListener listener) {
+		dexButton.addActionListener(listener);
+	}
 
-    /* Bottom Toolbar */
-    public void bottomPanel_setVisible(boolean b) {
-        bottomPanel.setVisible(b);
-    }
+	/* Bottom Toolbar */
+	public void setBottomPanelVisible(boolean visible) {
+		bottomPanel.setVisible(visible);
+	}
 
-    public String inputField_getText() {
-        return inputField.getText();
-    }
+	public String getInputText() {
+		return inputField.getText();
+	}
 
-    public void inputField_setText(String text) {
-        inputField.setText(text);
-    }
+	public void setInputText(String text) {
+		inputField.setText(text);
+	}
 
-    public void inputField_addActionListener(ActionListener listener) {
-        inputField.addActionListener(listener);
-    }
+	public void addInputFieldListener(ActionListener listener) {
+		inputField.addActionListener(listener);
+	}
 
-    public void enterButton_addActionListener(ActionListener listener) {
-        enterButton.addActionListener(listener);
-    }
+	public void addEnterButtonListener(ActionListener listener) {
+		enterButton.addActionListener(listener);
+	}
 
-    /* Battle Frame */
-    public void battleFrame_setVisible(boolean b) {
-        battleFrame.setVisible(b);
-    }
+	/* Battle Frame */
+	public void setBattleFrameVisible(boolean visible) {
+		battleFrame.setVisible(visible);
+	}
 
-    public void battleFrame_catchButton_addActionListener(ActionListener listener) {
-        battleFrame.catchButton_addActionListener(listener);
-    }
+	public void addBattleFrameCatchListener(ActionListener listener) {
+		battleFrame.catchButton_addActionListener(listener);
+	}
 
-    public void battleFrame_escapeButton_addActionListener(ActionListener listener) {
-        battleFrame.escapeButton_addActionListener(listener);
-    }
+	public void addBattleFrameEscapeListener(ActionListener listener) {
+		battleFrame.escapeButton_addActionListener(listener);
+	}
 
-    /* Dialog Box - Dex */
-    public void dexDialogBox_setVisible(boolean b) {
-        dexDialogBox.setVisible(b);
-    }
+	/* Dialog Box - Dex */
+	public void setDexDialogVisible(boolean visible) {
+		dexDialogBox.setVisible(visible);
+	}
 
-    public void dexDialogBox_setText(String text) {
-        dexDialogBox.setText(text);
-    }
+	public void setDexDialogText(String text) {
+		dexDialogBox.setText(text);
+	}
 
-    /* Dialog Box - Team */
-    public void teamDialogBox_setVisible(boolean b) {
-        teamDialogBox.setVisible(b);
-    }
+	/* Dialog Box - Team */
+	public void setTeamDialogVisible(boolean visible) {
+		teamDialogBox.setVisible(visible);
+	}
 
-    public void teamDialogBox_setText(String text) {
-        teamDialogBox.setText(text);
-    }
+	public void setTeamDialogText(String text) {
+		teamDialogBox.setText(text);
+	}
 }
